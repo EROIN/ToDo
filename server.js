@@ -13,12 +13,13 @@ router.route('/todo')
   })
   .post(function(request,response){
     console.log(request.body)
-    todo.push(request.body)
+    todo.unshift(request.body)
     response.send('success');
   })
   .delete(function(request,response){
     console.log('body',request.body)
-    delete todo[request.body.index]
+    // delete todo[request.body.index]
+    todo.splice(request.body.index,1)
     console.log(todo)
     response.send('success');
   })

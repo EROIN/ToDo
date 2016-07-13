@@ -7,25 +7,34 @@ app.controller('MainController', function($scope, $http) {
         $scope.todos=response.data
     });
 
-    var x=1;
-    $http.post('/todo',{text:x})
+    $scope.addTodo=function()
+    {
+    console.log($scope.text);
+    var data=$scope.text;
+    $http.post('/todo',{text:data})
     .then(function(response){
       console.log(response.data)
-      $scope.todos.unshift({text:x})
-      x+=1
+      $scope.todos.unshift({text:data})
     })
+    $scope.text='';
+    }
 
-    $http({
-    method: 'DELETE',
-    url: '/todo',
-    data: {index:2},
-    headers: {'Content-Type': 'application/json;charset=utf-8'}
-    })
-    .then(function(response){
-      console.log("SDsdsdsd",response.data);
-      delete $scope.todos[2]
-    });
+    $scope.removeTodo=function($index)
+    {
+      // $index=$scope.todos.length-1-$index;
+      $http({
+      method: 'DELETE',
+      url: '/todo',
+      data: {index:$index},
+      headers: {'Content-Type': 'application/json;charset=utf-8'}
+      })
+      .then(function(response){
+        console.log("SDsdsdsd",response.data);
+        // delete $scope.todos[$index]
+        $scope.todos.splice($index,1)
+      });
 
+    }
     // $http.delete('todo',{data:{index:1}})
     // .then(function(response){
     //   console.log('assas',response.data)
