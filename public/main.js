@@ -1,11 +1,20 @@
 var app = angular.module('todo', []);
 
 app.controller('MainController', function($scope, $http) {
-    $http.get("/todo")
-    .then(function(response) {
-      console.log(response.data)
-        $scope.todos=response.data
-    });
+    function updateDataFromServer(){
+      console.log('update function called');
+      $http.get("/todo")
+      .then(function(response) {
+        console.log(response.data)
+          $scope.todos=response.data
+      });
+    }
+
+    updateDataFromServer();
+
+    setInterval(function(){
+      updateDataFromServer();
+    }, 1000)
 
     $scope.addTodo=function()
     {
