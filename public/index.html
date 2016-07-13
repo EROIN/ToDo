@@ -1,0 +1,12 @@
+<html ng-app="todo">
+  <head>
+    <title>To Do</title>
+    <script src="./vendor/angular.min.js"></script>
+    <script src="./main.js"></script>
+  </head>
+<body ng-controller="MainController">
+  <div ng-repeat="todo in todos track by $index">
+    {{todo.text}}
+  </div>
+</body>
+</html>
